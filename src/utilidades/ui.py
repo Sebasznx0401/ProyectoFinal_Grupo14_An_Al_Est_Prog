@@ -5,7 +5,37 @@ Proporciona un menú interactivo para utilizar el sistema de planificación
 
 import sys
 from typing import List, Tuple
-from tabulate import tabulate
+
+try:
+    from tabulate import tabulate
+except ModuleNotFoundError:  # pragma: no cover - fallback for environments without tabulate
+    def tabulate(rows, headers=None, tablefmt="simple"):
+        """Fallback simple table formatter used when tabulate is unavailable."""
+        if not rows:
+            return ""
+
+        if headers is None:
+            headers = []
+
+        data = [list(map(str, row)) for row in rows]
+        if headers:
+            header_row = [str(h) for h in headers]
+            data = [header_row] + data
+
+        widths = []
+        for col in zip(*data):
+            widths.append(max(len(str(item)) for item in col))
+
+        lines = []
+        for idx, row in enumerate(data):
+            cells = [str(item).ljust(widths[col]) for col, item in enumerate(row)]
+            line = " | ".join(cells)
+            lines.append(line)
+            if idx == 0 and headers:
+                lines.append("-+-".join("-" * width for width in widths))
+
+        return "\n".join(lines)
+
 from src.modelos.models import Project, Solution
 from src.algoritmos.dynamic_programming import solve_knapsack_01
 from src.algoritmos.greedy_algorithm import solve_greedy, solve_greedy_by_benefit, solve_greedy_by_priority
