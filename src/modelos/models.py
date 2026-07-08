@@ -26,7 +26,7 @@ class Project:
     benefit: float
     priority: int = 1
     
-    def _post_init_(self):
+    def __post_init__(self):
         """Validaciones después de inicializar"""
         if self.cost < 0:
             raise ValueError(f"El costo no puede ser negativo: {self.cost}")
@@ -55,13 +55,13 @@ class Project:
             'roi': self.roi()
         }
     
-    def _str_(self) -> str:
+    def __str__(self) -> str:
         return (f"Proyecto(ID={self.id}, Nombre='{self.name}', "
                 f"Costo=${self.cost:,.0f}, Beneficio=${self.benefit:,.0f}, "
                 f"ROI={self.roi():.2f})")
     
-    def _repr_(self) -> str:
-        return self._str_()
+    def __repr__(self) -> str:
+        return self.__str__()
 
 
 class Solution:
@@ -75,7 +75,7 @@ class Solution:
         algorithm_used: Nombre del algoritmo utilizado
     """
     
-    def _init_(self, algorithm_used: str = "Unknown"):
+    def __init__(self, algorithm_used: str = "Unknown"):
         """
         Inicializa una solución vacía
         
@@ -139,7 +139,7 @@ class Solution:
             'project_count': len(self.projects)
         }
     
-    def _str_(self) -> str:
+    def __str__(self) -> str:
         summary = f"\n{'='*60}\n"
         summary += f"SOLUCIÓN: {self.algorithm_used}\n"
         summary += f"{'='*60}\n"
@@ -158,5 +158,5 @@ class Solution:
         summary += f"{'='*60}\n"
         return summary
     
-    def _repr_(self) -> str:
+    def __repr__(self) -> str:
         return f"Solution(algorithm={self.algorithm_used}, projects={len(self.projects)}, cost={self.total_cost})"
