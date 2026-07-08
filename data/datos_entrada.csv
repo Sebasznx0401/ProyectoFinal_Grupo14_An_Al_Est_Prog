@@ -1,0 +1,11 @@
+id,nombre,costo,beneficio,prioridad
+1,Software Development Tool,50000,80000,1
+2,Mobile App,30000,45000,2
+3,Cloud Infrastructure,40000,65000,3
+4,Security Update,15000,25000,4
+5,Documentation,10000,15000,5
+6,API Integration,20000,35000,2
+7,Database Optimization,25000,40000,3
+8,Testing Framework,12000,20000,4
+9,Performance Tuning,18000,32000,2
+10,Monitoring System,22000,38000,3
